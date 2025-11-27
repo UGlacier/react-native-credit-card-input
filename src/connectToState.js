@@ -9,6 +9,7 @@ export const InjectedProps = {
   values: PropTypes.object.isRequired,
   status: PropTypes.object.isRequired,
   onFocus: PropTypes.func.isRequired,
+  onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   onBecomeEmpty: PropTypes.func.isRequired,
   onBecomeValid: PropTypes.func.isRequired,
@@ -23,6 +24,7 @@ export default function connectToState(CreditCardInput) {
       autoFocus: PropTypes.bool,
       onChange: PropTypes.func.isRequired,
       onFocus: PropTypes.func,
+      onBlur: PropTypes.func,
       requiresName: PropTypes.bool,
       requiresCVC: PropTypes.bool,
       requiresPostalCode: PropTypes.bool,
@@ -33,6 +35,7 @@ export default function connectToState(CreditCardInput) {
       autoFocus: false,
       onChange: () => {},
       onFocus: () => {},
+      onBlur: () => {},
       requiresName: false,
       requiresCVC: true,
       requiresPostalCode: false,
@@ -69,6 +72,10 @@ export default function connectToState(CreditCardInput) {
 
     focus = (field = "number") => {
       this.setState({ focused: field });
+    };
+
+    blur = () => {
+      this.setState({ focused: "" });
     };
 
     _displayedFields = () => {
@@ -109,12 +116,18 @@ export default function connectToState(CreditCardInput) {
       this.props.onFocus(field);
     };
 
+    _onBlur = (field) => {
+      this.blur();
+      this.props.onBlur(field);
+    };
+
     render() {
       return (
         <CreditCardInput
           {...this.props}
           {...this.state}
           onFocus={this._onFocus}
+          onBlur={this._onBlur}
           onChange={this._change}
           onBecomeEmpty={this._focusPreviousField}
           onBecomeValid={this._focusNextField} />

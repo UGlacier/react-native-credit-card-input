@@ -134,6 +134,7 @@ export default class CreditCardInput extends Component {
       values,
       status,
       onFocus,
+      onBlur,
       onChange,
       onBecomeEmpty,
       onBecomeValid,
@@ -155,6 +156,7 @@ export default class CreditCardInput extends Component {
       status: status[field],
 
       onFocus,
+      onBlur,
       onChange,
       onBecomeEmpty,
       onBecomeValid,

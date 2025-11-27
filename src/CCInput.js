@@ -33,6 +33,7 @@ export default class CCInput extends Component {
     placeholderColor: PropTypes.string,
 
     onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onBecomeEmpty: PropTypes.func,
     onBecomeValid: PropTypes.func,
@@ -47,6 +48,7 @@ export default class CCInput extends Component {
     inputStyle: {},
     labelStyle: {},
     onFocus: () => {},
+    onBlur: () => {},
     onChange: () => {},
     onBecomeEmpty: () => {},
     onBecomeValid: () => {},
@@ -64,6 +66,7 @@ export default class CCInput extends Component {
   focus = () => this.refs.input.focus();
 
   _onFocus = () => this.props.onFocus(this.props.field);
+  _onBlur = () => this.props.onBlur(this.props.field);
   _onChange = value => this.props.onChange(this.props.field, value);
 
   render() {
@@ -93,6 +96,7 @@ export default class CCInput extends Component {
             placeholder={placeholder}
             value={value}
             onFocus={this._onFocus}
+            onBlur={this._onBlur}
             onChangeText={this._onChange} />
         </View>
       </TouchableOpacity>
