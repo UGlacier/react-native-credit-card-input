@@ -8,6 +8,7 @@ import {
   LayoutAnimation,
   TouchableOpacity,
   TextInput,
+  ViewPropTypes,
 } from "react-native";
 
 import Icons from "./Icons";
@@ -72,11 +73,14 @@ export default class LiteCreditCardInput extends Component {
 
     placeholders: PropTypes.object,
 
+    inputContainerStyle: ViewPropTypes.style,
     inputStyle: Text.propTypes.style,
     focusInputStyle: Text.propTypes.style,
     errorInputStyle: Text.propTypes.style,
+    clearButtonContainerStyle: ViewPropTypes.style,
     renderErrorElement: PropTypes.func,
     renderErrorPlaceholderElement: PropTypes.func,
+    renderClearButton: PropTypes.func,
 
     validColor: PropTypes.string,
     invalidColor: PropTypes.string,
@@ -114,8 +118,8 @@ export default class LiteCreditCardInput extends Component {
 
   _inputProps = field => {
     const {
-      inputStyle, focusInputStyle, errorInputStyle,
-      renderErrorElement, renderErrorPlaceholderElement,
+      inputContainerStyle, inputStyle, focusInputStyle, errorInputStyle, clearButtonContainerStyle,
+      renderErrorElement, renderErrorPlaceholderElement, renderClearButton,
       validColor, invalidColor, placeholderColor,
       placeholders, values, status, focused,
       onFocus, onBlur, onChange, onBecomeEmpty, onBecomeValid,
@@ -130,9 +134,12 @@ export default class LiteCreditCardInput extends Component {
         : inputStyle;
 
     return {
+      inputContainerStyle,
       inputStyle: [s.input, selectedInputStyle],
+      clearButtonContainerStyle,
       renderErrorElement,
       renderErrorPlaceholderElement,
+      renderClearButton,
       validColor, invalidColor, placeholderColor,
       ref: field, field,
 

@@ -51,8 +51,11 @@ export default class CreditCardInput extends Component {
     inputStyle: Text.propTypes.style,
     focusInputStyle: Text.propTypes.style,
     errorInputStyle: Text.propTypes.style,
+    clearButtonContainerStyle: ViewPropTypes.style,
     renderErrorElement: PropTypes.func,
     renderErrorPlaceholderElement: PropTypes.func,
+    renderClearButton: PropTypes.func,
+    fieldContainerStyle: ViewPropTypes.style,
     inputContainerStyle: ViewPropTypes.style,
 
     validColor: PropTypes.string,
@@ -88,7 +91,7 @@ export default class CreditCardInput extends Component {
       cvc: "CVC",
       postalCode: "34567",
     },
-    inputContainerStyle: {
+    fieldContainerStyle: {
       borderBottomWidth: 1,
       borderBottomColor: "black",
     },
@@ -128,11 +131,14 @@ export default class CreditCardInput extends Component {
 
   _inputProps = (field) => {
     const {
+      inputContainerStyle,
       inputStyle,
       focusInputStyle,
       errorInputStyle,
+      clearButtonContainerStyle,
       renderErrorElement,
       renderErrorPlaceholderElement,
+      renderClearButton,
       labelStyle,
       validColor,
       invalidColor,
@@ -158,9 +164,12 @@ export default class CreditCardInput extends Component {
         : inputStyle;
 
     return {
+      inputContainerStyle,
       inputStyle: [s.input, selectedInputStyle],
+      clearButtonContainerStyle,
       renderErrorElement,
       renderErrorPlaceholderElement,
+      renderClearButton,
       labelStyle: [s.inputLabel, labelStyle],
       validColor,
       invalidColor,
@@ -187,7 +196,7 @@ export default class CreditCardInput extends Component {
     const {
       cardImageFront,
       cardImageBack,
-      inputContainerStyle,
+      fieldContainerStyle,
       values: { number, expiry, cvc, name, type },
       focused,
       allowScroll,
@@ -226,7 +235,7 @@ export default class CreditCardInput extends Component {
             keyboardType="numeric"
             containerStyle={[
               s.inputContainer,
-              inputContainerStyle,
+              fieldContainerStyle,
               { width: CARD_NUMBER_INPUT_WIDTH },
             ]}
           />
@@ -242,7 +251,7 @@ export default class CreditCardInput extends Component {
               keyboardType="numeric"
               containerStyle={[
                 s.inputContainer,
-                inputContainerStyle,
+                fieldContainerStyle,
                 { width: EXPIRY_INPUT_WIDTH },
               ]}
             />
@@ -252,7 +261,7 @@ export default class CreditCardInput extends Component {
                 keyboardType="numeric"
                 containerStyle={[
                   s.inputContainer,
-                  inputContainerStyle,
+                  fieldContainerStyle,
                   { width: CVC_INPUT_WIDTH },
                 ]}
               />
@@ -264,7 +273,7 @@ export default class CreditCardInput extends Component {
               {...this._inputProps("name")}
               containerStyle={[
                 s.inputContainer,
-                inputContainerStyle,
+                fieldContainerStyle,
                 { width: NAME_INPUT_WIDTH },
               ]}
             />
@@ -275,7 +284,7 @@ export default class CreditCardInput extends Component {
               keyboardType="numeric"
               containerStyle={[
                 s.inputContainer,
-                inputContainerStyle,
+                fieldContainerStyle,
                 { width: POSTAL_CODE_INPUT_WIDTH },
               ]}
             />
