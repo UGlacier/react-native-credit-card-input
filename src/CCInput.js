@@ -28,6 +28,8 @@ export default class CCInput extends Component {
     containerStyle: ViewPropTypes.style,
     inputStyle: Text.propTypes.style,
     labelStyle: Text.propTypes.style,
+    renderErrorElement: PropTypes.func,
+    renderErrorPlaceholderElement: PropTypes.func,
     validColor: PropTypes.string,
     invalidColor: PropTypes.string,
     placeholderColor: PropTypes.string,
@@ -70,8 +72,9 @@ export default class CCInput extends Component {
   _onChange = value => this.props.onChange(this.props.field, value);
 
   render() {
-    const { label, value, placeholder, status, keyboardType,
+    const { field, label, value, placeholder, status, keyboardType,
             containerStyle, inputStyle, labelStyle,
+            renderErrorElement, renderErrorPlaceholderElement,
             validColor, invalidColor, placeholderColor,
             additionalInputProps } = this.props;
     return (
@@ -98,6 +101,7 @@ export default class CCInput extends Component {
             onFocus={this._onFocus}
             onBlur={this._onBlur}
             onChangeText={this._onChange} />
+          {status === "invalid" ? renderErrorElement?.(field) : renderErrorPlaceholderElement?.(field)}
         </View>
       </TouchableOpacity>
     );

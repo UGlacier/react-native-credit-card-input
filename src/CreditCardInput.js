@@ -49,6 +49,10 @@ export default class CreditCardInput extends Component {
 
     labelStyle: Text.propTypes.style,
     inputStyle: Text.propTypes.style,
+    focusInputStyle: Text.propTypes.style,
+    errorInputStyle: Text.propTypes.style,
+    renderErrorElement: PropTypes.func,
+    renderErrorPlaceholderElement: PropTypes.func,
     inputContainerStyle: ViewPropTypes.style,
 
     validColor: PropTypes.string,
@@ -125,6 +129,10 @@ export default class CreditCardInput extends Component {
   _inputProps = (field) => {
     const {
       inputStyle,
+      focusInputStyle,
+      errorInputStyle,
+      renderErrorElement,
+      renderErrorPlaceholderElement,
       labelStyle,
       validColor,
       invalidColor,
@@ -133,6 +141,7 @@ export default class CreditCardInput extends Component {
       labels,
       values,
       status,
+      focused,
       onFocus,
       onBlur,
       onChange,
@@ -141,8 +150,17 @@ export default class CreditCardInput extends Component {
       additionalInputsProps,
     } = this.props;
 
+    const selectedInputStyle =
+      (errorInputStyle && status[field] === 'invalid')
+        ? errorInputStyle
+        : (focusInputStyle && focused === field)
+        ? focusInputStyle
+        : inputStyle;
+
     return {
-      inputStyle: [s.input, inputStyle],
+      inputStyle: [s.input, selectedInputStyle],
+      renderErrorElement,
+      renderErrorPlaceholderElement,
       labelStyle: [s.inputLabel, labelStyle],
       validColor,
       invalidColor,
